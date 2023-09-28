@@ -24,10 +24,6 @@ public class Member extends UserWithRoles {
     private String zip;
     private String city;
 
-    private int ranking;
-
-    private boolean approved;
-
     public Member(String user, String password, String email, String firstName,
                   String lastName, String street, String city, String zip) {
         super(user, password, email);
