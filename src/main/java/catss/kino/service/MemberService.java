@@ -68,7 +68,6 @@ public class MemberService {
 
     public ResponseEntity<Boolean> setRanking(String username, int value) {
         Member member = getMemberByUsername(username);
-        member.setRanking(value);
         memberRepository.save(member);
         return ResponseEntity.ok(true);
     }
