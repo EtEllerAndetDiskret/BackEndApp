@@ -28,7 +28,6 @@ public class MemberResponse {
     LocalDateTime created;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
-
     LocalDateTime edited;
     Integer ranking;
     Boolean approved;
