@@ -2,7 +2,9 @@ package catss.kino.config;
 
 import catss.kino.entity.Member;
 import catss.kino.repository.MemberRepository;
+import catss.kino.service.MovieService;
 import catss.security.entity.Role;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
@@ -14,13 +16,36 @@ import java.util.List;
 public class DeveloperData implements ApplicationRunner {
 
     final MemberRepository memberRepository;
+    final MovieService movieService;
 
-    public DeveloperData(MemberRepository memberRepository) {
+    public DeveloperData(MemberRepository memberRepository, MovieService movieService) {
         this.memberRepository = memberRepository;
+        this.movieService = movieService;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        SetupDummyMembers();
+        SetupDummyMovies();
+    }
+
+    private void SetupDummyMovies() {
+        try {
+            movieService.addMovie("tt0088247");
+            movieService.addMovie("tt21807222");
+            movieService.addMovie("tt0033467");
+            movieService.addMovie("tt9224104");
+            movieService.addMovie("tt1517268");
+            movieService.addMovie("tt9362722");
+            movieService.addMovie("tt6791350");
+            movieService.addMovie("tt6718170");
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void SetupDummyMembers() {
         String passwordUsedByAll = "1234";
         Member member1 = new Member(
                 "user1",
