@@ -36,9 +36,12 @@ public class MovieService {
 
 
     public Movie addMovie(String imdbId) throws JsonProcessingException {
+        // Builds the URL and gets the movie
         MovieOmdbResponse dto = omdbFacade.getMovie(imdbId);
+        // Translate the plot to danish
         String dkPlot = translator.translate(dto.getPlot());
 
+        // Build movie entity
         Movie movie = Movie.builder()
                 .title(dto.getTitle())
                 .year(dto.getYear())
@@ -60,6 +63,7 @@ public class MovieService {
                 .imdbID(dto.getImdbID())
                 .build();
         try {
+            // Save movie to our repository
             movieRepository.save(movie);
             return movie;
         } catch (DataIntegrityViolationException e) {

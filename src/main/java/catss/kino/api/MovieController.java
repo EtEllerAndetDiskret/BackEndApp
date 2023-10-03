@@ -19,16 +19,19 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    //Get movie from specific ID
     @RequestMapping("/imdbid/{imdbId}")
     public Movie getMovie(@PathVariable String imdbId) {
         return movieService.getMovieByImdbId(imdbId);
     }
 
+    //POST a movie
     @PostMapping("/{imdbId}")
     public Movie addMovie(@PathVariable String imdbId) throws JsonProcessingException {
         return movieService.addMovie(imdbId);
     }
 
+    //Get all movies
     @GetMapping
     List<Movie> getMovies(){
         return movieService.getAllMovies();

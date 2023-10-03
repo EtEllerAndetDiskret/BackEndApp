@@ -45,6 +45,7 @@ public class AzureTranslate {
         restTemplate = new RestTemplate();
     }
 
+    // Sets up stuff needed for translation
     @Value("${app.azure-translate-key}")
     String SUBSCRIPTION_KEY;
     String REGION = "northeurope";
@@ -53,14 +54,19 @@ public class AzureTranslate {
 
     public String translate(String txt) {
 
+        // Set up the headers needed for our request
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Ocp-Apim-Subscription-Key", SUBSCRIPTION_KEY);
         headers.set("Ocp-Apim-Subscription-Region", REGION);
 
+        // Set up body for request
         TextBody t = new TextBody(txt);
         List<TextBody> body = Collections.singletonList(t);
+
+        //Collect to an HttpEntity
         HttpEntity<List<TextBody>> entity = new HttpEntity<>(body, headers);
+        // POST request to translate the text
         ResponseEntity<TranslationResponse[]> response = restTemplate.exchange(AZURE_TRANSLATE_URL, HttpMethod.POST, entity, TranslationResponse[].class);
         System.out.println(response.getBody());
 

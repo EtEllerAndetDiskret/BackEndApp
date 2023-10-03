@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MovieOmdbResponse {
+    // @JsonProperty added to all of these to make sure the data is mapped correctly, and with correct casing (Title -> title)
 
     @JsonProperty("Title")
     private String title;

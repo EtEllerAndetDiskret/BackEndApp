@@ -19,6 +19,7 @@ public class OmdbFacade {
     String OMDB_URL = "http://www.omdbapi.com";
 
     public MovieOmdbResponse getMovie(String imdbId) {
+        // Uses the parameters above to create the URL
         String url = OMDB_URL+"/?apikey=" + API_KEY + "&plot=full" + "&i=";
         MovieOmdbResponse movieDTO = restTemplate.getForObject(url+imdbId, MovieOmdbResponse.class);
         return movieDTO;
