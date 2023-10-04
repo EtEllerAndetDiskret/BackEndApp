@@ -21,6 +21,7 @@ public class Reservation {
 
     LocalDate bookingDate;
 
+
     @ManyToOne
     Member member;
 
@@ -37,6 +38,7 @@ public class Reservation {
         this.member = member;
         member.addReservation(this);
         movie.addReservation(this);
+
     }
 
 }

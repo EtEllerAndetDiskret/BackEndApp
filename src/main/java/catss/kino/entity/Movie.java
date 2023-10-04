@@ -23,6 +23,7 @@ public class Movie {
 
     @ManyToOne
     Reservation reservation;
+    public double price;
 
     // Entity class for movie with attributes fitting all the information gotten from the Json
     private String title;
