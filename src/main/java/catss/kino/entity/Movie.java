@@ -2,6 +2,9 @@ package catss.kino.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -17,6 +20,22 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+
+    //The relation between the movie and reservation classes.
+    @OneToMany(mappedBy = "movie")
+    List<Reservation> reservations;
+    @ManyToOne
+    Reservation reservation;
+    public double price;
+    // Adds the reservation to a list with the movies, that can get accessed by any class.
+    public void addReservation(Reservation reservation){
+        if (reservation == null){
+            reservations = new ArrayList<>();
+        }
+        reservations.add(reservation);
+    }
+
 
     // Entity class for movie with attributes fitting all the information gotten from the Json
     private String title;
@@ -43,5 +62,8 @@ public class Movie {
     private String imdbID;
     private String website;
     private String response;
+
+
+
 
 }

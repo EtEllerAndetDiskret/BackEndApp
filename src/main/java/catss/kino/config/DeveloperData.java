@@ -1,14 +1,18 @@
 package catss.kino.config;
 
 import catss.kino.entity.Member;
+import catss.kino.entity.Reservation;
 import catss.kino.repository.MemberRepository;
+import catss.kino.repository.ReservationRepository;
 import catss.kino.service.MovieService;
+import catss.kino.service.ReservationService;
 import catss.security.entity.Role;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class DeveloperData implements ApplicationRunner {
 
     final MemberRepository memberRepository;
     final MovieService movieService;
+
 
     public DeveloperData(MemberRepository memberRepository, MovieService movieService) {
         this.memberRepository = memberRepository;

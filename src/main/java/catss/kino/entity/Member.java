@@ -24,6 +24,16 @@ public class Member extends UserWithRoles {
     private String zip;
     private String city;
 
+    @OneToMany(mappedBy = "member")
+    List<Reservation> reservations;
+
+    public void addReservation(Reservation reservation){
+        if (reservation == null){
+            reservations = new ArrayList<>();
+        }
+        reservations.add(reservation);
+    }
+
     public Member(String user, String password, String email, String firstName,
                   String lastName, String street, String city, String zip) {
         super(user, password, email);
