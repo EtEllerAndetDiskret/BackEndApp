@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,10 +36,17 @@ public class Reservation {
     protected LocalDateTime created;
     @UpdateTimestamp
     protected LocalDateTime edited;
+
+    @ElementCollection
+    List<String> seats;
+
+
 // A constructor created to make new reservations
-    public Reservation(LocalDate bookingDate,Member member,Movie movie){
+    public Reservation(LocalDate bookingDate,Member member,Movie movie, List<String> seats){
+        this.seats = seats;
         this.bookingDate = bookingDate;
         this.member = member;
+        this.movie = movie;
         member.addReservation(this);
         movie.addReservation(this);
 

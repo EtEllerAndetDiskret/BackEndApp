@@ -17,7 +17,8 @@ public class ReservationController {
     }
     @PostMapping
     ReservationResponse makeReservation(@RequestBody ReservationRequest res){
-        return service.reserveTicket(res);
+        ReservationResponse r = service.reserveTicket(res);
+        return r;
     }
     @GetMapping("/{userName}")
     public List<ReservationResponse> getReservationsForUser(@PathVariable String userName){

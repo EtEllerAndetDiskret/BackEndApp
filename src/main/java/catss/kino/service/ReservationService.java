@@ -36,7 +36,7 @@ public class ReservationService {
         Movie movie = movieRepository.findById(body.getMovieId()).orElseThrow(
                 ()-> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
-        Reservation res = reservationRepository.save(new Reservation(body.getDate(),member,movie));
+        Reservation res = reservationRepository.save(new Reservation(body.getDate(),member,movie, body.getSeats()));
         return new ReservationResponse(res);
     }
     public List<ReservationResponse> getReservationsForUser(String username){
