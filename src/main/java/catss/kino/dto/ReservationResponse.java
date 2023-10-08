@@ -20,8 +20,8 @@ public class ReservationResponse {
 
     public ReservationResponse(Reservation reservation) {
         this.id = reservation.getId();
-        this.movieId = reservation.getMovie().getId();
-        this.price = reservation.getMovie().getPrice();
+        this.movieId = reservation.getShowing().getId();
+        this.price = reservation.getShowing().getPrice();
         this.reservationDate = reservation.getBookingDate();
         this.seats = reservation.getSeats();
     }

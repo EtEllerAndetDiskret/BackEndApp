@@ -28,7 +28,7 @@ public class Member extends UserWithRoles {
     List<Reservation> reservations;
 
     public void addReservation(Reservation reservation){
-        if (reservation == null){
+        if (reservations == null){
             reservations = new ArrayList<>();
         }
         reservations.add(reservation);

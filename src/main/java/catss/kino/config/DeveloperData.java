@@ -2,17 +2,17 @@ package catss.kino.config;
 
 import catss.kino.entity.Member;
 import catss.kino.entity.Reservation;
+import catss.kino.entity.Showing;
 import catss.kino.repository.MemberRepository;
-import catss.kino.repository.ReservationRepository;
+import catss.kino.repository.ShowingRepository;
 import catss.kino.service.MovieService;
-import catss.kino.service.ReservationService;
 import catss.security.entity.Role;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +21,36 @@ public class DeveloperData implements ApplicationRunner {
 
     final MemberRepository memberRepository;
     final MovieService movieService;
+    final ShowingRepository showingRepository;
 
 
-    public DeveloperData(MemberRepository memberRepository, MovieService movieService) {
+    public DeveloperData(MemberRepository memberRepository, MovieService movieService, ShowingRepository showingRepository) {
         this.memberRepository = memberRepository;
         this.movieService = movieService;
+        this.showingRepository = showingRepository;
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args){
         SetupDummyMembers();
         SetupDummyMovies();
+        SetupDummyShowings();
+
+    }
+
+    private void SetupDummyShowings() {
+        List<Showing> dummyShowings = new ArrayList<>();
+
+        List<Reservation> reservations = new ArrayList<>();
+        Showing showing1 = new Showing(movieService.getMovieById(1), 1, LocalDateTime.now().plusDays(1), 240, 120);
+        Showing showing2 = new Showing(movieService.getMovieById(2), 2, LocalDateTime.now().plusDays(2), 300, 180);
+        Showing showing3 = new Showing(movieService.getMovieById(3), 2, LocalDateTime.now().plusDays(1), 180, 200);
+        Showing showing4 = new Showing(movieService.getMovieById(4), 1, LocalDateTime.now().plusDays(4), 240, 99);
+        Showing showing5 = new Showing(movieService.getMovieById(5), 2, LocalDateTime.now().plusDays(3), 180, 69.95);
+        Showing showing6 = new Showing(movieService.getMovieById(6), 1, LocalDateTime.now().plusDays(1), 240, 120);
+        Showing showing7 = new Showing(movieService.getMovieById(7), 2, LocalDateTime.now().plusDays(6), 300, 99);
+
+        showingRepository.saveAll(new ArrayList<>(List.of(showing1, showing2, showing3, showing4, showing5, showing6, showing7)));
     }
 
     private void SetupDummyMovies() {

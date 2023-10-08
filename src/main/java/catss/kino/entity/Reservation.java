@@ -30,7 +30,7 @@ public class Reservation {
 
     // The relation between the Reservation and Movie classes
     @ManyToOne
-    Movie movie;
+    Showing showing;
 
     @CreationTimestamp
     protected LocalDateTime created;
@@ -42,14 +42,13 @@ public class Reservation {
 
 
 // A constructor created to make new reservations
-    public Reservation(LocalDate bookingDate,Member member,Movie movie, List<String> seats){
+    public Reservation(LocalDate bookingDate,Member member,Showing showing, List<String> seats){
         this.seats = seats;
         this.bookingDate = bookingDate;
         this.member = member;
-        this.movie = movie;
+        this.showing = showing;
         member.addReservation(this);
-        movie.addReservation(this);
-
+        showing.addReservation(this);
     }
 
 }
