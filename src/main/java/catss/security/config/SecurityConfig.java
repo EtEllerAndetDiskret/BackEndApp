@@ -72,9 +72,21 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/*")).permitAll()
 
             .requestMatchers(mvcMatcherBuilder.pattern("/error")).permitAll()
+            //Admin only
+            .requestMatchers(
+                    mvcMatcherBuilder.pattern("/api/members/admin"),
+                    mvcMatcherBuilder.pattern("/api/members/{username}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/members/{username}"),
+                    mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/movies/{imdbid}"),
+                    mvcMatcherBuilder.pattern("/api/reservations/{username}")
+            ).hasAuthority("ADMIN")
+            .requestMatchers(
+                    mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/reservations")
 
-            //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
+            ).hasAuthority("USER")
+
             .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll()
+            //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
             .anyRequest().authenticated());
 
     return http.build();

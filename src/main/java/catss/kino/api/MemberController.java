@@ -48,12 +48,6 @@ class MemberController {
         return memberService.editMember(body, username);
     }
 
-    //Admin only
-    @PatchMapping("/ranking/{username}/{value}")
-    ResponseEntity<Boolean> setRankingForUser(@PathVariable String username, @PathVariable int value) {
-        return memberService.setRanking(username, value);
-    }
-
     //Admin only since this could be done for any user
     @DeleteMapping("/{username}")
     void deleteMemberByUsername(@PathVariable String username) {
