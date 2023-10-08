@@ -17,14 +17,11 @@ import java.util.List;
 public class ReservationRequest {
     int showingId;
     String userName;
-    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
-    LocalDate date;
     List<String> seats;
 
     public ReservationRequest(Reservation res) {
         this.showingId = res.getShowing().getId();
         this.userName = res.getMember().getUsername();
-        this.date = res.getBookingDate();
         this.seats = res.getSeats();
     }
 }

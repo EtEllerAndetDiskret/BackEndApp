@@ -1,6 +1,8 @@
 package catss.kino.dto;
 
+import catss.kino.entity.Member;
 import catss.kino.entity.Reservation;
+import catss.kino.entity.Showing;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,16 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 public class ReservationResponse {
     int id;
-    int movieId;
-    Double price;
-    LocalDate reservationDate;
+    String username;
+    int showingId;
     List<String> seats;
 
     public ReservationResponse(Reservation reservation) {
         this.id = reservation.getId();
-        this.movieId = reservation.getShowing().getId();
-        this.price = reservation.getShowing().getPrice();
-        this.reservationDate = reservation.getBookingDate();
+        this.username = reservation.getMember().getUsername();
+        this.showingId = reservation.getShowing().getId();
         this.seats = reservation.getSeats();
     }
 }

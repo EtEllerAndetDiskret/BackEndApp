@@ -2,6 +2,8 @@ package catss.kino.service;
 
 import catss.kino.dto.ReservationRequest;
 import catss.kino.dto.ReservationResponse;
+import catss.kino.dto.ShowingRequest;
+import catss.kino.dto.ShowingResponse;
 import catss.kino.entity.Member;
 import catss.kino.entity.Movie;
 import catss.kino.entity.Reservation;
@@ -21,20 +23,20 @@ public class ReservationService {
     ReservationRepository reservationRepository;
     MemberService memberService;
     ShowingService showingService;
+    MovieService movieService;
 
-    public ReservationService(ShowingService showingService,MemberService memberService,ReservationRepository reservationRepository){
+    public ReservationService(ShowingService showingService,MemberService memberService,ReservationRepository reservationRepository, MovieService movieService){
         this.memberService = memberService;
         this.reservationRepository = reservationRepository;
         this.showingService = showingService;
+        this.movieService = movieService;
     }
 
     public ReservationResponse reserveTicket(ReservationRequest body){
-        if (body.getDate().isBefore(LocalDate.now())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Date in past not allowed");
-        }
         Member member = memberService.getMemberByUsername(body.getUserName());
         Showing showing = showingService.getShowingById(body.getShowingId());
-        Reservation res = reservationRepository.save(new Reservation(body.getDate(),member,showing, body.getSeats()));
+        Reservation res = new Reservation(member,showing, body.getSeats());
+        res = reservationRepository.save(res);
         return new ReservationResponse(res);
     }
     public List<ReservationResponse> getReservationsForUser(String username){

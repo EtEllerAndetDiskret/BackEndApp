@@ -11,6 +11,7 @@ import org.springframework.cglib.core.Local;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -37,13 +38,13 @@ public class Showing {
 
     // Adds the reservation to a list with the movies, that can get accessed by any class.
     public void addReservation(Reservation reservation){
-        if (reservation == null){
+        if (reservations == null){
             reservations = new ArrayList<>();
         }
         reservations.add(reservation);
     }
 
-    public Showing(Movie movie, int hallId, LocalDateTime start, int lengthInMinutes, double price) {
+    public Showing(Movie movie, int hallId, LocalDateTime start, Long lengthInMinutes, double price) {
         this.movie = movie;
         this.hallId = hallId;
         this.start = start;
@@ -51,5 +52,9 @@ public class Showing {
         this.price = price;
         this.reservations = new ArrayList<>();
         movie.addShowing(this);
+    }
+
+    public List<Integer> getReservationIds() {
+        return reservations.stream().map(reservation -> reservation.id).collect(Collectors.toList());
     }
 }
