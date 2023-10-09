@@ -51,6 +51,12 @@ public class DeveloperData implements ApplicationRunner {
         Showing showing7 = new Showing(movieService.getMovieById(7), 2, LocalDateTime.now().plusDays(6), 300L, 99);
 
         showingRepository.saveAll(new ArrayList<>(List.of(showing1, showing2, showing3, showing4, showing5, showing6, showing7)));
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 5; j++) {
+                showingRepository.save(new Showing(movieService.getMovieById(2), i%2+1, LocalDateTime.now().plusDays(i).plusHours(j*4), 240L, 120));
+            }
+        }
     }
 
     private void SetupDummyMovies() {
