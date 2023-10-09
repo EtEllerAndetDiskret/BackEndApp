@@ -77,4 +77,9 @@ public class MovieService {
 
         return movieRepository.findAll();
     }
+
+    public Movie getMovieById(int movieId) {
+        return movieRepository.findById(movieId).orElseThrow(
+                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 }

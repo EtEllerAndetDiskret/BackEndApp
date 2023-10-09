@@ -23,19 +23,8 @@ public class Movie {
 
 
     //The relation between the movie and reservation classes.
-    @OneToMany(mappedBy = "movie")
-    List<Reservation> reservations;
-    @ManyToOne
-    Reservation reservation;
-    public double price;
-    // Adds the reservation to a list with the movies, that can get accessed by any class.
-    public void addReservation(Reservation reservation){
-        if (reservation == null){
-            reservations = new ArrayList<>();
-        }
-        reservations.add(reservation);
-    }
-
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    List<Showing> showings;
 
     // Entity class for movie with attributes fitting all the information gotten from the Json
     private String title;
@@ -64,6 +53,10 @@ public class Movie {
     private String response;
 
 
-
-
+    public void addShowing(Showing showing) {
+        if (showings == null){
+            showings = new ArrayList<>();
+        }
+        showings.add(showing);
+    }
 }

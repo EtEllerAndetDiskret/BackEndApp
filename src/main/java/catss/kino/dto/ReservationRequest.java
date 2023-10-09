@@ -15,16 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReservationRequest {
-    int movieId;
+    int showingId;
     String userName;
-    @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
-    LocalDate date;
     List<String> seats;
 
     public ReservationRequest(Reservation res) {
-        this.movieId = res.getMovie().getId();
+        this.showingId = res.getShowing().getId();
         this.userName = res.getMember().getUsername();
-        this.date = res.getBookingDate();
         this.seats = res.getSeats();
     }
 }
