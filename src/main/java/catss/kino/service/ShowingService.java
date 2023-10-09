@@ -34,12 +34,12 @@ public class ShowingService {
     }
 
     public ShowingResponse addShowing(ShowingRequest request) {
-        Movie movie = movieService.getMovieById(request.getMovieId());
+        Movie movie = movieService.getMovieByImdbId(request.getMovieId());
         Showing showing = new Showing(movie, request.getHallId(), request.getStart(), request.getDurationInMinutes(), request.getPrice());
         return new ShowingResponse(showingRepository.save(showing));
     }
 
-    public List<ShowingResponse> getShowingsOfMovie(int movieId) {
-        return showingRepository.findAllByMovieId(movieId).stream().map(ShowingResponse::new).collect(Collectors.toList());
+    public List<ShowingResponse> getShowingsOfMovie(String movieId) {
+        return showingRepository.findAllByMovieImdbId(movieId).stream().map(ShowingResponse::new).collect(Collectors.toList());
     }
 }

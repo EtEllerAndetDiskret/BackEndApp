@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ShowingRequest {
-    int movieId;
+    String movieId;
     int hallId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",shape = JsonFormat.Shape.STRING)
     LocalDateTime start;
@@ -21,7 +21,7 @@ public class ShowingRequest {
     double price;
 
     public ShowingRequest(Showing s) {
-        this.movieId = s.getMovie().getId();
+        this.movieId = s.getMovie().getImdbID();
         this.hallId = s.getHallId();
         this.start = s.getStart();
         this.durationInMinutes = Duration.between(start, s.getEnd()).toMinutes();

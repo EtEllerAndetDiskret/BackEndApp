@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ShowingResponse {
-    int movieId;
+    String movieId;
     int hallId;
     LocalDateTime startTime;
     Long lengthInMinutes;
@@ -21,7 +21,7 @@ public class ShowingResponse {
     List<Integer> reservationIds;
 
     public ShowingResponse(Showing showing) {
-        this.movieId = showing.getMovie().getId();
+        this.movieId = showing.getMovie().getImdbID();
         this.hallId = showing.getHallId();
         this.startTime = showing.getStart();
         this.lengthInMinutes = Duration.between(startTime, showing.getEnd()).toMinutes();

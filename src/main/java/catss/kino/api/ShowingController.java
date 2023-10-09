@@ -34,7 +34,7 @@ public class ShowingController {
     }
 
     @GetMapping("/movie/{movieId}")
-    List<ShowingResponse> getShowingsByMovieId(@PathVariable int movieId){
+    List<ShowingResponse> getShowingsByMovieId(@PathVariable String movieId){
         return showingService.getShowingsOfMovie(movieId);
     }
 
