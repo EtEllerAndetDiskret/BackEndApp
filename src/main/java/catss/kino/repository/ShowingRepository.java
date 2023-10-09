@@ -12,7 +12,7 @@ public interface ShowingRepository extends JpaRepository<Showing, Integer> {
     List<Showing> findAllByMovieId(int movieId);
 
     @Query(
-            value = "SELECT hall_id, s.id, movie_id, price, end, start FROM showing s INNER JOIN movies m ON s.movie_id = m.id WHERE imdbid = \"tt0088247\";",
+            value = "SELECT hall_id, s.id, movie_id, price, end, start FROM showing s INNER JOIN movies m ON s.movie_id = m.id WHERE m.imdbid = ?1",
             nativeQuery = true
     )
     List<Showing> findAllByMovieImdbId(String movieId);
