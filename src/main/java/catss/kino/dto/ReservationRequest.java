@@ -16,12 +16,12 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationRequest {
     int showingId;
-    String userName;
+    String username;
     List<String> seats;
 
     public ReservationRequest(Reservation res) {
         this.showingId = res.getShowing().getId();
-        this.userName = res.getMember().getUsername();
+        this.username = res.getMember().getUsername();
         this.seats = res.getSeats();
     }
 }

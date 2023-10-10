@@ -20,9 +20,9 @@ public class ReservationController {
         ReservationResponse r = service.reserveTicket(res);
         return r;
     }
-    @GetMapping("/{userName}")
-    public List<ReservationResponse> getReservationsForUser(@PathVariable String userName){
-        List<ReservationResponse> res = service.getReservationsForUser(userName);
+    @GetMapping("/{username}")
+    public List<ReservationResponse> getReservationsForUser(@PathVariable String username){
+        List<ReservationResponse> res = service.getReservationsForUser(username);
         return res;
     }
 }
