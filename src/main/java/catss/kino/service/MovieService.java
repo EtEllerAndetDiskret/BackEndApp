@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -81,5 +82,17 @@ public class MovieService {
     public Movie getMovieById(int movieId) {
         return movieRepository.findById(movieId).orElseThrow(
                 ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public ResponseEntity<Boolean> deleteMovie(int imdbId) {
+        if(!movieRepository.existsById(imdbId)) {
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this ID doesn't exist");
+        }
+        try {
+            movieRepository.deleteById(imdbId);
+            return ResponseEntity.ok(true);
+        }catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete movie - for some reason");
+        }
     }
 }
