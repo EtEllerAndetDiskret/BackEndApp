@@ -33,7 +33,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/{imdbId}")
-    public ResponseEntity <Boolean> deleteMovie(@PathVariable int imdbId) {
+    public ResponseEntity <Boolean> deleteMovie(@PathVariable String imdbId) {
         return movieService.deleteMovie(imdbId); }
 
     //Get all movies

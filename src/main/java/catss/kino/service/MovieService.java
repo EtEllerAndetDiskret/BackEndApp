@@ -13,8 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import java.lang.String;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -29,10 +31,6 @@ public class MovieService {
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
-    }
-
-    public Movie getMovieByImdbId(String imdbId) {
-        return movieRepository.findByImdbID(imdbId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
     }
 
 
@@ -79,20 +77,29 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById(int movieId) {
-        return movieRepository.findById(movieId).orElseThrow(
-                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public Movie getMovieByImdbId(String imdbId) {
+        Integer id = Integer.parseInt(imdbId);
+        boolean movieExists = movieRepository.existsById(id);
+       // Optional<Movie> optionalMovie = movieRepository.findByImdbID(movieId);
+        if(movieExists) {
+            return movieRepository.getOne(id);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with ID " + imdbId + " not found");
+        }
     }
 
-    public ResponseEntity<Boolean> deleteMovie(int imdbId) {
-        if(!movieRepository.existsById(imdbId)) {
+    public ResponseEntity<Boolean> deleteMovie(String imdbId) {
+        if(!movieRepository.findByImdbID(imdbId)) {
             throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this ID doesn't exist");
         }
         try {
-            movieRepository.deleteById(imdbId);
+            Integer id = Integer.parseInt(imdbId);
+            movieRepository.deleteById(id);
             return ResponseEntity.ok(true);
+        }catch (NumberFormatException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ImDb ID format", e);
         }catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete movie - for some reason");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete movie - for some reason", e);
         }
     }
 }
