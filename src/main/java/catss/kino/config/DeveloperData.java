@@ -40,21 +40,22 @@ public class DeveloperData implements ApplicationRunner {
 
     private void SetupDummyShowings() {
         List<Showing> dummyShowings = new ArrayList<>();
+        LocalDateTime baseTime = LocalDateTime.of(2023, 10, 12, 9, 0);
 
         List<Reservation> reservations = new ArrayList<>();
-        Showing showing1 = new Showing(movieService.getMovieById(1), 1, LocalDateTime.now().plusDays(1), 240L, 120);
-        Showing showing2 = new Showing(movieService.getMovieById(2), 2, LocalDateTime.now().plusDays(2), 300L, 180);
-        Showing showing3 = new Showing(movieService.getMovieById(3), 2, LocalDateTime.now().plusDays(1), 180L, 200);
-        Showing showing4 = new Showing(movieService.getMovieById(4), 1, LocalDateTime.now().plusDays(4), 240L, 99);
-        Showing showing5 = new Showing(movieService.getMovieById(5), 2, LocalDateTime.now().plusDays(3), 180L, 69.95);
-        Showing showing6 = new Showing(movieService.getMovieById(6), 1, LocalDateTime.now().plusDays(1), 240L, 120);
-        Showing showing7 = new Showing(movieService.getMovieById(7), 2, LocalDateTime.now().plusDays(6), 300L, 99);
+        Showing showing7 = new Showing(movieService.getMovieById(7), 2, baseTime.plusDays(6), 300L, 99);
+        Showing showing1 = new Showing(movieService.getMovieById(1), 1, baseTime.plusDays(1), 240L, 120);
+        Showing showing2 = new Showing(movieService.getMovieById(2), 2, baseTime.plusDays(2), 300L, 180);
+        Showing showing3 = new Showing(movieService.getMovieById(3), 2, baseTime.plusDays(1), 180L, 200);
+        Showing showing4 = new Showing(movieService.getMovieById(4), 1, baseTime.plusDays(4), 240L, 99);
+        Showing showing5 = new Showing(movieService.getMovieById(5), 2, baseTime.plusDays(3), 180L, 69.95);
+        Showing showing6 = new Showing(movieService.getMovieById(6), 1, baseTime.plusDays(1), 240L, 120);
 
         showingRepository.saveAll(new ArrayList<>(List.of(showing1, showing2, showing3, showing4, showing5, showing6, showing7)));
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 5; j++) {
-                showingRepository.save(new Showing(movieService.getMovieById(2), i%2+1, LocalDateTime.now().plusDays(i).plusHours(j*4), 240L, 120));
+                showingRepository.save(new Showing(movieService.getMovieById(2), i%2+1, baseTime.plusDays(i).plusHours(j*4), 240L, 120));
             }
         }
     }
