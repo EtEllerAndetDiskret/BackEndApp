@@ -33,7 +33,7 @@ public class ReservationService {
     }
 
     public ReservationResponse reserveTicket(ReservationRequest body){
-        Member member = memberService.getMemberByUsername(body.getUserName());
+        Member member = memberService.getMemberByUsername(body.getUsername());
         Showing showing = showingService.getShowingById(body.getShowingId());
         Reservation res = new Reservation(member,showing, body.getSeats());
         res = reservationRepository.save(res);
