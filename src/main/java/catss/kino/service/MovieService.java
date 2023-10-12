@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.lang.String;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,31 +76,26 @@ public class MovieService {
     public List<Movie> getAllMovies() {
 
         return movieRepository.findAll();
+
     }
 
-    public Movie getMovieByImdbId(String imdbId) {
-        Integer id = Integer.parseInt(imdbId);
-        boolean movieExists = movieRepository.existsById(id);
-       // Optional<Movie> optionalMovie = movieRepository.findByImdbID(movieId);
-        if(movieExists) {
-            return movieRepository.getOne(id);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with ID " + imdbId + " not found");
-        }
+
+public void deleteMovieByImdbID(String imdbId) {
+    Optional<Movie> optionalMovie = movieRepository.findMovieByImdbID(imdbId);
+    if (optionalMovie.isPresent()) {
+        movieRepository.deleteMovieByImdbID(imdbId);
+    } else {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie not found" + imdbId);
     }
 
-    public ResponseEntity<Boolean> deleteMovie(String imdbId) {
-        if(!movieRepository.findByImdbID(imdbId)) {
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this ID doesn't exist");
-        }
-        try {
-            Integer id = Integer.parseInt(imdbId);
-            movieRepository.deleteById(id);
-            return ResponseEntity.ok(true);
-        }catch (NumberFormatException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ImDb ID format", e);
-        }catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete movie - for some reason", e);
-        }
+}
+
+    public Movie getMovieByImdbID(String imdbId) {
+        Optional optionalMovie1 = movieRepository.findMovieByImdbID(imdbId);
+        Movie movie = (Movie) optionalMovie1.orElse(null);
+        return movie;
+
     }
+
+
 }

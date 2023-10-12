@@ -5,6 +5,7 @@ import catss.kino.dto.MovieOmdbResponse;
 import catss.kino.entity.Movie;
 import catss.kino.service.MovieService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class MovieController {
     //Get movie from specific ID
     @RequestMapping("/imdbid/{imdbId}")
     public Movie getMovie(@PathVariable String imdbId) {
-        return movieService.getMovieByImdbId(imdbId);
+        return movieService.getMovieByImdbID(imdbId);
     }
 
     //POST a movie
@@ -33,8 +34,10 @@ public class MovieController {
     }
 
     @DeleteMapping("/{imdbId}")
-    public ResponseEntity <Boolean> deleteMovie(@PathVariable String imdbId) {
-        return movieService.deleteMovie(imdbId); }
+    public ResponseEntity <String> deleteMovie(@PathVariable String imdbId) throws JsonProcessingException {
+        movieService.deleteMovieByImdbID(imdbId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     //Get all movies
     @GetMapping
