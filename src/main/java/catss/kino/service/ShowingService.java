@@ -34,7 +34,7 @@ public class ShowingService {
     }
 
     public ShowingResponse addShowing(ShowingRequest request) {
-        Movie movie = movieService.getMovieByImdbId(request.getMovieId());
+        Movie movie = movieService.getMovieByImdbID(request.getMovieId());
         Showing showing = new Showing(movie, request.getHallId(), request.getStart(), request.getDurationInMinutes(), request.getPrice());
         return new ShowingResponse(showingRepository.save(showing));
     }
