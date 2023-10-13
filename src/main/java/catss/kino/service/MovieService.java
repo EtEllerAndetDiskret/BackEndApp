@@ -77,18 +77,18 @@ public class MovieService {
     }
 
 
-public void deleteMovieByImdbID(String imdbId) {
-    Optional<Movie> optionalMovie = movieRepository.findMovieByImdbID(imdbId);
+    public void deleteMovieByImdbId(String imdbId) {
+    Optional<Movie> optionalMovie = movieRepository.findMovieByImdbId(imdbId);
     if (optionalMovie.isPresent()) {
-        movieRepository.deleteMovieByImdbID(imdbId);
+        movieRepository.deleteMovieByImdbId(imdbId);
     } else {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie not found" + imdbId);
     }
 
 }
 
-    public Movie getMovieByImdbID(String imdbId) {
-        Optional optionalMovie1 = movieRepository.findMovieByImdbID(imdbId);
+    public Movie getMovieByImdbId(String imdbId) {
+        Optional optionalMovie1 = movieRepository.findMovieByImdbId(imdbId);
         Movie movie = (Movie) optionalMovie1.orElse(null);
         return movie;
 
