@@ -3,6 +3,7 @@ package catss.kino.service;
 
 import catss.kino.api_facade.AzureTranslate;
 import catss.kino.api_facade.OmdbFacade;
+import catss.kino.dto.MemberRequest;
 import catss.kino.dto.MovieOmdbResponse;
 import catss.kino.entity.Movie;
 import catss.kino.repository.MovieRepository;
@@ -10,12 +11,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import java.lang.String;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +30,10 @@ public class MovieService {
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
+    }
+
+    public Movie getMovieByImdbId(String imdbId) {
+        return movieRepository.findMovieByImdbID(imdbId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
     }
 
 
@@ -76,7 +78,6 @@ public class MovieService {
     public List<Movie> getAllMovies() {
 
         return movieRepository.findAll();
-
     }
 
 
