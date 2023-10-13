@@ -3,6 +3,7 @@ package catss.kino.service;
 
 import catss.kino.api_facade.AzureTranslate;
 import catss.kino.api_facade.OmdbFacade;
+import catss.kino.dto.MemberRequest;
 import catss.kino.dto.MovieOmdbResponse;
 import catss.kino.entity.Movie;
 import catss.kino.repository.MovieRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieService {
@@ -28,10 +30,6 @@ public class MovieService {
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
-    }
-
-    public Movie getMovieByImdbId(String imdbId) {
-        return movieRepository.findByImdbID(imdbId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
     }
 
 
@@ -78,8 +76,23 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById(int movieId) {
-        return movieRepository.findById(movieId).orElseThrow(
-                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+    public void deleteMovieByImdbId(String imdbId) {
+    Optional<Movie> optionalMovie = movieRepository.findMovieByImdbID(imdbId);
+    if (optionalMovie.isPresent()) {
+        movieRepository.deleteMovieByImdbID(imdbId);
+    } else {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie not found" + imdbId);
     }
+
+}
+
+    public Movie getMovieByImdbId(String imdbId) {
+        Optional optionalMovie1 = movieRepository.findMovieByImdbID(imdbId);
+        Movie movie = (Movie) optionalMovie1.orElse(null);
+        return movie;
+
+    }
+
+
 }

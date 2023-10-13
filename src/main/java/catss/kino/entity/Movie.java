@@ -23,7 +23,7 @@ public class Movie {
 
 
     //The relation between the movie and reservation classes.
-    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     List<Showing> showings;
 
     // Entity class for movie with attributes fitting all the information gotten from the Json
