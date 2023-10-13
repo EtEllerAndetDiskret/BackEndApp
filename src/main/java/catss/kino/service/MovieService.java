@@ -32,10 +32,6 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Movie getMovieByImdbId(String imdbId) {
-        return movieRepository.findMovieByImdbID(imdbId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie not found"));
-    }
-
 
     public Movie addMovie(String imdbId) throws JsonProcessingException {
         // Builds the URL and gets the movie
