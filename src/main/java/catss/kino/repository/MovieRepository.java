@@ -11,8 +11,8 @@ import static org.hibernate.FetchMode.SELECT;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     //  boolean findByImdbID(String imdbId);
-    Optional<Movie> findMovieByImdbId(String imdbId);
-    Optional<Movie> deleteMovieByImdbId(String imdbId);
+    Optional<Movie> findMovieByImdbID(String imdbID);
+    Optional<Movie> deleteMovieByImdbID(String imdbID);
 
 }
 

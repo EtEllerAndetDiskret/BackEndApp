@@ -54,7 +54,7 @@ public class DeveloperData implements ApplicationRunner {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 5; j++) {
-                showingRepository.save(new Showing(movieService.getMovieByImdbId(""), i%2+1, LocalDateTime.now().plusDays(i).plusHours(j*4), 240L, 120));
+                showingRepository.save(new Showing(movieService.getMovieByImdbId("tt21807222"), i%2+1, LocalDateTime.now().plusDays(i).plusHours(j*4), 240L, 120));
             }
         }
     }

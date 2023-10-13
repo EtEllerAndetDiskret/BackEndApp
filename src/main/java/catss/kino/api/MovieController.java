@@ -24,7 +24,7 @@ public class MovieController {
     //Get movie from specific ID
     @RequestMapping("/imdbid/{imdbId}")
     public Movie getMovie(@PathVariable String imdbId) {
-        return movieService.getMovieByImdbID(imdbId);
+        return movieService.getMovieByImdbId(imdbId);
     }
 
     //POST a movie
@@ -35,7 +35,7 @@ public class MovieController {
 
     @DeleteMapping("/{imdbId}")
     public ResponseEntity <String> deleteMovie(@PathVariable String imdbId) throws JsonProcessingException {
-        movieService.deleteMovieByImdbID(imdbId);
+        movieService.deleteMovieByImdbId(imdbId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
